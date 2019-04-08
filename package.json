@@ -1,0 +1,17 @@
+{
+  "name": "react-native-michael-picker",
+  "version": "1.0.3",
+  "description": "A Native Picker with high performance.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jiangdianlong521/react-native-michael-picker.git"
+  },
+  "author": "michael",
+  "license": "MIT",
+  "homepage": "https://github.com/jiangdianlong521/react-native-michael-picker"
+}

@@ -1,6 +1,6 @@
-# react-native-picker
+# react-native-michael-picker
 
-[![npm version](https://img.shields.io/npm/v/react-native-picker.svg?style=flat-square)](https://www.npmjs.com/package/react-native-picker) <a href="https://david-dm.org/beefe/react-native-picker"><img src="https://david-dm.org/beefe/react-native-picker.svg?style=flat-square" alt="dependency status"></a>   
+[![npm version](https://img.shields.io/npm/v/react-native-michael-picker.svg?style=flat-square)](https://www.npmjs.com/package/react-native-michael-picker) <a href="https://david-dm.org/beefe/react-native-michael-picker"><img src="https://david-dm.org/beefe/react-native-michael-picker.svg?style=flat-square" alt="dependency status"></a>   
 
 ![ui3](./doc/ui3.jpg)
 ![ui4](./doc/ui4.jpg)
@@ -94,15 +94,18 @@ target 'YourTarget' do
     'Core',
     ...
     ]
-    pod 'Picker', :path => '../YOUR_REACT_NATIVE_PROJECT/node_modules/react-native-picker'
+    pod 'Picker', :path => '../YOUR_REACT_NATIVE_PROJECT/node_modules/react-native-michael-picker'
 end
 ```
-After you have updated the `Podfile` of the existing app, you can install `react-native-picker` like below:
+After you have updated the `Podfile` of the existing app, you can install `react-native-michael-picker` like below:
 ``` bash
 $ pod install
 ```
 
 ### Notice
+
+#### fork 别人项目
+解决rn0.59.2的android release问题
 
 #### support two modes:
 
@@ -194,4 +197,4 @@ pickerData = [
 ]
 ```
 
-### For pure javascript version -> [v3.0.5](https://github.com/beefe/react-native-picker/tree/pure-javascript-version)  
+### For pure javascript version -> [v3.0.5](https://github.com/beefe/react-native-michael-picker/tree/pure-javascript-version)  

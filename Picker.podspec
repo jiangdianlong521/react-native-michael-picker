@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.author         = package['author']
   s.license        = package['license']
   s.homepage       = package['homepage']
-  s.source         = { :git => 'https://github.com/beefe/react-native-picker.git', :tag => "v#{s.version}"}
+  s.source         = { :git => 'https://github.com/jiangdianlong521/react-native-michael-picker.git', :tag => "v#{s.version}"}
   s.platform       = :ios, '7.0'
   s.preserve_paths = '*.js'
 

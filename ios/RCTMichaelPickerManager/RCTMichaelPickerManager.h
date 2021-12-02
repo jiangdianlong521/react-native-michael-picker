@@ -13,6 +13,7 @@
 #import "RCTBridgeModule.h"
 #endif
 
-@interface RCTBEEPickerManager : NSObject<RCTBridgeModule>
+@interface RCTMichaelPickerManager : NSObject<RCTBridgeModule>
+-(void)hideAll;
 
 @end

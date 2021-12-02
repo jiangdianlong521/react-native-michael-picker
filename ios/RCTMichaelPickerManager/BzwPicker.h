@@ -20,6 +20,8 @@ typedef void(^backBolock)(NSDictionary * );
 
 @property(nonatomic,copy)backBolock bolock;
 
+@property (nonatomic,copy) void(^blockClose)(void);//没参数
+
 @property (strong, nonatomic) NSDictionary *pickerDic;//一开始进来的字典
 
 @property(strong,nonatomic)NSArray *dataDry;//一进来的就没有数组和字典的区别肯定是一个字典

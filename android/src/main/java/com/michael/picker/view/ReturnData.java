@@ -1,4 +1,4 @@
-package com.beefe.picker.view;
+package com.michael.picker.view;
 
 /**
  * Created by shexiaoheng on 2016/12/23.

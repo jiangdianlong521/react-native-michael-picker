@@ -1,4 +1,4 @@
-package com.beefe.picker;
+package com.michael.picker;
 
 import android.content.res.AssetManager;
 import android.app.Activity;
@@ -8,6 +8,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Typeface;
 import androidx.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -16,11 +17,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.os.Build;
 
-import com.beefe.picker.util.MIUIUtils;
-import com.beefe.picker.view.OnSelectedListener;
-import com.beefe.picker.view.PickerViewAlone;
-import com.beefe.picker.view.PickerViewLinkage;
-import com.beefe.picker.view.ReturnData;
+import com.michael.picker.util.MIUIUtils;
+import com.michael.picker.view.OnSelectedListener;
+import com.michael.picker.view.PickerViewAlone;
+import com.michael.picker.view.PickerViewLinkage;
+import com.michael.picker.view.ReturnData;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.LifecycleEventListener;
@@ -35,6 +36,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import static android.graphics.Color.argb;
 
@@ -82,7 +84,7 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
     private static final String OTF = ".otf";
     private static final String TTF = ".ttf";
 
-    private static final String REACT_CLASS = "BEEPickerManager";
+    private static final String REACT_CLASS = "MichaelPickerManager";
 
     private static final String PICKER_DATA = "pickerData";
     private static final String SELECTED_VALUE = "selectedValue";
@@ -152,6 +154,7 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
         Activity activity = getCurrentActivity();
         if (activity != null && options.hasKey(PICKER_DATA)) {
             View view = activity.getLayoutInflater().inflate(R.layout.picker_view, null);
+            RelativeLayout barLayoutBackGround = (RelativeLayout) view.findViewById(R.id.backGround);
             RelativeLayout barLayout = (RelativeLayout) view.findViewById(R.id.barLayout);
             TextView cancelTV = (TextView) view.findViewById(R.id.cancel);
             TextView titleTV = (TextView) view.findViewById(R.id.title);
@@ -159,7 +162,23 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
             RelativeLayout pickerLayout = (RelativeLayout) view.findViewById(R.id.pickerLayout);
             pickerViewLinkage = (PickerViewLinkage) view.findViewById(R.id.pickerViewLinkage);
             pickerViewAlone = (PickerViewAlone) view.findViewById(R.id.pickerViewAlone);
+            barLayoutBackGround.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(v.getId() == R.id.backGround){
+                        hide();
+                    }
+                }
 
+            });
+            //这控制header点击不影响背景
+            barLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("------------>222",v.getId()+"");
+                    Log.e("------------222>",R.id.backGround+"");
+                }
+            });
             int barViewHeight;
             if (options.hasKey(PICKER_TOOL_BAR_HEIGHT)) {
                 try {
@@ -170,10 +189,10 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
             } else {
                 barViewHeight = (int) (activity.getResources().getDisplayMetrics().density * 40);
             }
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT,
-                    barViewHeight);
-            barLayout.setLayoutParams(params);
+//            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+//                    RelativeLayout.LayoutParams.MATCH_PARENT,
+//                    barViewHeight);
+//            barLayout.setLayoutParams(params);
 
             if (options.hasKey(PICKER_TOOL_BAR_BG)) {
                 ReadableArray array = options.getArray(PICKER_TOOL_BAR_BG);
@@ -389,6 +408,8 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
             int height = barViewHeight + pickerViewHeight;
             if (dialog == null) {
                 dialog = new Dialog(activity, R.style.Dialog_Full_Screen);
+                dialog.setCancelable(true);
+                dialog.setCanceledOnTouchOutside(true);
                 dialog.setContentView(view);
                 WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
                 Window window = dialog.getWindow();
@@ -406,7 +427,8 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
                     layoutParams.format = PixelFormat.TRANSPARENT;
                     layoutParams.windowAnimations = R.style.PickerAnim;
                     layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-                    layoutParams.height = height;
+                    layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+//                    layoutParams.height=height;
                     layoutParams.gravity = Gravity.BOTTOM;
                     window.setAttributes(layoutParams);
                 }
@@ -546,6 +568,7 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
         hide();
         dialog = null;
     }
+
 
     @Override
     public void onHostDestroy() {

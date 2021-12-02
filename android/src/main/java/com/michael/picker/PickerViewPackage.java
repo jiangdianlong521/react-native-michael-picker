@@ -1,4 +1,4 @@
-package com.beefe.picker;
+package com.michael.picker;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;

@@ -1,4 +1,4 @@
-package com.beefe.picker.view;
+package com.michael.picker.view;
 
 import android.os.Handler;
 import android.os.Message;

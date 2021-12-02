@@ -1,4 +1,4 @@
-package com.beefe.picker.util;
+package com.michael.picker.util;
 
 /**
  * Created by geezer. on 2017/9/21.

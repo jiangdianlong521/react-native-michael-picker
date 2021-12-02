@@ -1,24 +1,25 @@
 //
-//  RCTBEEPickerManager.m
-//  RCTBEEPickerManager
+//  RCTMichaelPickerManager.m
+//  RCTMichaelPickerManager
 //
 //  Created by MFHJ-DZ-001-417 on 16/9/6.
 //  Copyright © 2016年 MFHJ-DZ-001-417. All rights reserved.
 //
 
-#import "RCTBEEPickerManager.h"
+#import "RCTMichaelPickerManager.h"
 #import "BzwPicker.h"
 #import <React/RCTEventDispatcher.h>
 
-@interface RCTBEEPickerManager()
+@interface RCTMichaelPickerManager()
 
 @property(nonatomic,strong)BzwPicker *pick;
 @property(nonatomic,assign)float height;
-@property(nonatomic,weak)UIWindow * window;
+@property(nonatomic,weak)UIWindow *window;
+@property(nonatomic,weak)UIView *viewBackGround;
 
 @end
 
-@implementation RCTBEEPickerManager
+@implementation RCTMichaelPickerManager
 
 @synthesize bridge = _bridge;
 
@@ -79,9 +80,9 @@ RCT_EXPORT_METHOD(_init:(NSDictionary *)indic){
     }else{
         self.height=220;
     }
-    
+
     self.pick=[[BzwPicker alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, self.height) dic:dataDic leftStr:pickerCancelBtnText centerStr:pickerTitleText rightStr:pickerConfirmBtnText topbgColor:pickerToolBarBg bottombgColor:pickerBg leftbtnbgColor:pickerCancelBtnColor rightbtnbgColor:pickerConfirmBtnColor centerbtnColor:pickerTitleColor selectValueArry:selectArry weightArry:weightArry pickerToolBarFontSize:pickerToolBarFontSize pickerFontSize:pickerFontSize pickerFontColor:pickerFontColor  pickerRowHeight: pickerRowHeight pickerFontFamily:pickerFontFamily];
-    
+
     _pick.bolock=^(NSDictionary *backinfoArry){
 
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -89,10 +90,23 @@ RCT_EXPORT_METHOD(_init:(NSDictionary *)indic){
             [self.bridge.eventDispatcher sendAppEventWithName:@"pickerEvent" body:backinfoArry];
         });
     };
+  
+  _pick.blockClose=^(){
+        [self hideAll];
+  };
+  
+  
 
     dispatch_async(dispatch_get_main_queue(), ^{
-
-        [self.window addSubview:_pick];
+     UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+         // 设置UIView对象的属性：设置背景颜色
+      self.viewBackGround = view;
+      self.viewBackGround.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+         // 将创建好的UIView对象添加到Window上显示
+      UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideAll)];
+      [self.viewBackGround addGestureRecognizer:singleTap];
+      [self.window addSubview:self.viewBackGround];
+      [self.window addSubview:_pick];
     });
 
 }
@@ -119,8 +133,9 @@ RCT_EXPORT_METHOD(hide){
             }];
         });
     }
-
-    self.pick.hidden=YES;
+//  [self.window removeFromSuperview];
+  self.viewBackGround.hidden = YES;
+  self.pick.hidden=YES;
 
     return;
 }
@@ -151,6 +166,21 @@ RCT_EXPORT_METHOD(isPickerShow:(RCTResponseSenderBlock)getBack){
     }else{
         getBack(@[@"picker不存在"]);
     }
+}
+
+-(void)hideAll{
+  
+  if (self.pick) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+          [UIView animateWithDuration:.3 animations:^{
+              [_pick setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, self.height)];
+          }];
+      });
+  }
+self.viewBackGround.hidden = YES;
+self.pick.hidden=YES;
+
+  return;
 }
 
 @end

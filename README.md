@@ -104,8 +104,10 @@ $ pod install
 
 ### Notice
 
-#### fork 别人项目
-解决rn0.59.2的android release问题
+#### 
+<b>解决rn0.60+的android release问题
+
+<b>增加modal背景
 
 #### support two modes:
 

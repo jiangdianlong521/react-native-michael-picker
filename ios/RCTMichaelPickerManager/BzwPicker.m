@@ -8,7 +8,6 @@
 
 #import "BzwPicker.h"
 #define linSpace 5
-
 @implementation BzwPicker
 
 -(instancetype)initWithFrame:(CGRect)frame dic:(NSDictionary *)dic leftStr:(NSString *)leftStr centerStr:(NSString *)centerStr rightStr:(NSString *)rightStr topbgColor:(NSArray *)topbgColor bottombgColor:(NSArray *)bottombgColor leftbtnbgColor:(NSArray *)leftbtnbgColor rightbtnbgColor:(NSArray *)rightbtnbgColor centerbtnColor:(NSArray *)centerbtnColor selectValueArry:(NSArray *)selectValueArry  weightArry:(NSArray *)weightArry
@@ -23,7 +22,7 @@
         self.cityArray=[[NSMutableArray alloc]init];
         self.selectValueArry=selectValueArry;
         self.weightArry=weightArry;
-        self.pickerDic=dic;
+          self.pickerDic=dic;
         self.leftStr=leftStr;
         self.rightStr=rightStr;
         self.centStr=centerStr;
@@ -64,7 +63,7 @@
     [self.rightBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10.0)];
     [self.rightBtn setTitle:self.rightStr forState:UIControlStateNormal];
     [self.rightBtn setTitleColor:[self colorWith:rightbtnbgColor] forState:UIControlStateNormal];
-    [self.rightBtn addTarget:self action:@selector(cfirmAction) forControlEvents:UIControlEventTouchUpInside];  
+    [self.rightBtn addTarget:self action:@selector(cfirmAction) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:self.rightBtn];
     
     UILabel *cenLabel=[[UILabel alloc]initWithFrame:CGRectMake(90, 5, SCREEN_WIDTH-180, 30)];
@@ -598,7 +597,7 @@
         [dic setValue:[self getselectIndexArry] forKey:@"selectedIndex"];
         self.bolock(dic);
     }
-    
+    self.blockClose();
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:.2f animations:^{
@@ -609,6 +608,7 @@
     });
 
     self.pick.hidden=YES;
+//    [self.window removeFromSuperview];
 }
 //按了确定按钮
 -(void)cfirmAction
@@ -640,6 +640,7 @@
         self.bolock(dic);
     }
     
+    self.blockClose();
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:.2f animations:^{
             

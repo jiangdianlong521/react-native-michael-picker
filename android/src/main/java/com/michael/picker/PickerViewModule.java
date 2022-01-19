@@ -162,6 +162,7 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
             RelativeLayout pickerLayout = (RelativeLayout) view.findViewById(R.id.pickerLayout);
             pickerViewLinkage = (PickerViewLinkage) view.findViewById(R.id.pickerViewLinkage);
             pickerViewAlone = (PickerViewAlone) view.findViewById(R.id.pickerViewAlone);
+            barLayoutBackGround.setBackgroundColor(Color.argb(70,255,255,255));
             barLayoutBackGround.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

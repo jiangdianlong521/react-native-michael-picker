@@ -101,7 +101,7 @@ RCT_EXPORT_METHOD(_init:(NSDictionary *)indic){
      UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
          // 设置UIView对象的属性：设置背景颜色
       self.viewBackGround = view;
-      self.viewBackGround.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+      self.viewBackGround.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
          // 将创建好的UIView对象添加到Window上显示
       UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideAll)];
       [self.viewBackGround addGestureRecognizer:singleTap];
@@ -171,12 +171,14 @@ RCT_EXPORT_METHOD(isPickerShow:(RCTResponseSenderBlock)getBack){
 -(void)hideAll{
   
   if (self.pick) {
+      [self.pick cancleAction];
       dispatch_async(dispatch_get_main_queue(), ^{
           [UIView animateWithDuration:.3 animations:^{
               [_pick setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, self.height)];
           }];
       });
   }
+    [self.pick cancleAction];
 self.viewBackGround.hidden = YES;
 self.pick.hidden=YES;
 

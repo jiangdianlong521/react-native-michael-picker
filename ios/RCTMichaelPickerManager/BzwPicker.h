@@ -85,4 +85,6 @@ typedef void(^backBolock)(NSDictionary * );
        pickerToolBarFontSize:(NSString *)pickerToolBarFontSize  pickerFontSize:(NSString *)pickerFontSize  pickerFontColor:(NSArray *)pickerFontColor  pickerRowHeight:(NSString *)pickerRowHeight  pickerFontFamily:(NSString *)pickerFontFamily;
 
 -(void)selectRow;
+
+-(void)cancleAction;
 @end

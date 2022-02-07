@@ -90,12 +90,13 @@ RCT_EXPORT_METHOD(_init:(NSDictionary *)indic){
             [self.bridge.eventDispatcher sendAppEventWithName:@"pickerEvent" body:backinfoArry];
         });
     };
-  
+
   _pick.blockClose=^(){
-        [self hideAll];
+      self.viewBackGround.hidden = YES;
+      self.pick.hidden=YES;
   };
-  
-  
+
+
 
     dispatch_async(dispatch_get_main_queue(), ^{
      UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -169,9 +170,8 @@ RCT_EXPORT_METHOD(isPickerShow:(RCTResponseSenderBlock)getBack){
 }
 
 -(void)hideAll{
-  
+
   if (self.pick) {
-      [self.pick cancleAction];
       dispatch_async(dispatch_get_main_queue(), ^{
           [UIView animateWithDuration:.3 animations:^{
               [_pick setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, self.height)];
